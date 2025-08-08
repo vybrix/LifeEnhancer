@@ -9,7 +9,46 @@
 <body>
   <div class="container">
     <header>
+      <h1 id="greeting">Good Morning</h1>a<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Goal Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
       <h1 id="greeting">Good Morning</h1>
+      <p id="dayText">It’s [day]</p>
+    </header>
+
+    <section class="goals">
+      <h2>🎯 Today's Goals</h2>
+      <ul id="goalList"></ul>
+      <div class="add-goal">
+        <input type="text" id="newGoal" placeholder="Type a new goal..." />
+        <button onclick="addGoal()">Add</button>
+      </div>
+    </section>
+
+    <section class="progress">
+      <div id="progressBarContainer">
+        <div id="progressBar"></div>
+      </div>
+      <p id="progressText">0% Complete</p>
+    </section>
+
+    <footer>
+      <p id="currentDate">📅</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
       <p id="dayText">It's [day].</p>
     </header>
 
