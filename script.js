@@ -1,14 +1,11 @@
-// Long loading time for aesthetic
 setTimeout(() => {
   document.getElementById('loading-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
 }, 3000);
 
-// Format current date
 const now = new Date();
 document.getElementById('current-date').textContent = now.toDateString();
 
-// Daily streak tracking
 let lastVisit = localStorage.getItem('lastVisit');
 let streak = parseInt(localStorage.getItem('streak') || 0);
 const today = new Date().toDateString();
@@ -27,12 +24,10 @@ if (lastVisit !== today) {
 
 document.getElementById('streak-count').textContent = streak;
 
-// Goal adding
 const addGoalBtn = document.getElementById('add-goal');
 const goalText = document.getElementById('goal-text');
 const goalList = document.getElementById('goal-list');
 
-// Load existing goals
 let goals = JSON.parse(localStorage.getItem('goals') || '[]');
 renderGoals();
 
@@ -53,11 +48,20 @@ function renderGoals() {
     card.className = 'goal-card' + (goal.done ? ' done' : '');
     card.innerHTML = `
       <span>${goal.text}</span>
-      <button class="complete-btn">${goal.done ? 'Undo' : 'Done'}</button>
+      <div class="goal-actions">
+        <button class="complete-btn">${goal.done ? 'Undo' : 'Done'}</button>
+        <button class="remove-btn">✖</button>
+      </div>
     `;
 
     card.querySelector('.complete-btn').onclick = () => {
       goals[i].done = !goals[i].done;
+      localStorage.setItem('goals', JSON.stringify(goals));
+      renderGoals();
+    };
+
+    card.querySelector('.remove-btn').onclick = () => {
+      goals.splice(i, 1);
       localStorage.setItem('goals', JSON.stringify(goals));
       renderGoals();
     };
