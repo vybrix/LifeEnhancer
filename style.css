@@ -13,10 +13,8 @@ body {
 
 #loading-screen {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #000;
+  inset: 0;
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +29,9 @@ body {
 }
 
 @keyframes fadeIn {
-  to { opacity: 1; }
+  to {
+    opacity: 1;
+  }
 }
 
 main {
@@ -63,33 +63,34 @@ header h1 {
 
 #goal-text {
   flex: 1;
-  padding: 12px;
+  padding: 16px;
   font-size: 1rem;
   background: #111;
-  border: 1px solid #333;
-  border-radius: 10px;
+  border: 2px solid #262626;
+  border-radius: 24px;
   color: #fff;
   outline: none;
-  transition: 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
 #goal-text:focus {
-  border-color: #555;
+  border-color: #444;
 }
 
 #add-goal {
-  padding: 12px 18px;
-  background: #fff;
-  color: #000;
-  border-radius: 10px;
-  border: none;
+  padding: 16px 24px;
+  background: #1e1e1e;
+  color: #fff;
+  border-radius: 24px;
+  border: 2px solid #333;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.2s ease;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 #add-goal:hover {
-  background: #ddd;
+  background: #2e2e2e;
+  border-color: #555;
 }
 
 #goal-list {
@@ -99,13 +100,13 @@ header h1 {
 
 .goal-card {
   background: #111;
-  padding: 16px;
-  border: 1px solid #333;
-  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid #262626;
+  border-radius: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s;
 }
 
 .goal-card:hover {
@@ -125,17 +126,17 @@ header h1 {
 button.complete-btn,
 button.remove-btn {
   background: none;
-  border: 1px solid #444;
-  border-radius: 8px;
+  border: 2px solid #333;
+  border-radius: 20px;
   color: #fff;
-  padding: 6px 10px;
+  padding: 8px 14px;
   cursor: pointer;
-  font-size: 0.85rem;
-  transition: 0.2s;
+  font-size: 0.9rem;
+  transition: background 0.2s, border-color 0.2s;
 }
 
 button.complete-btn:hover,
 button.remove-btn:hover {
-  background: #fff;
-  color: #000;
+  background: #2e2e2e;
+  border-color: #555;
 }
