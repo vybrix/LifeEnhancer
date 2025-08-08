@@ -1,43 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Goal Tracker</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Self Discipline Tracker</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
   <!-- Loading Screen -->
-  <div id="loadingOverlay">
-    <div class="gradient-bg"></div>
-    <div class="loader"></div>
+  <div id="loader" class="loader-container">
+    <div class="loader-text">loading your future...</div>
+    <div class="loader-bar">
+      <div class="loader-progress"></div>
+    </div>
   </div>
 
   <!-- Main App -->
-  <div class="container">
+  <main id="app" class="hidden">
     <header>
-      <h1>my goals</h1>
-      <p>track & win the day</p>
+      <h1>self discipline</h1>
+      <p>track. reflect. grow.</p>
     </header>
 
-    <div class="goals">
-      <h2>daily goals</h2>
-      <div class="add-goal">
-        <input type="text" id="goalInput" placeholder="Add a new goal...">
-        <button onclick="addGoal()">Add</button>
+    <section class="goals">
+      <div class="goal">
+        <h2>Daily Goal</h2>
+        <input type="text" placeholder="type your goal..." />
+        <button>add</button>
       </div>
-      <ul id="goalList"></ul>
-    </div>
-
-    <div class="progress">
-      <div id="progressBarContainer">
-        <div id="progressBar"></div>
+      <div class="goal-list">
+        <!-- goals will show up here -->
       </div>
-      <div id="progressText">0% done</div>
-    </div>
-
-    <footer>made by me</footer>
-  </div>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
