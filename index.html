@@ -1,25 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Goals Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Goals</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <div class="container">
-    <h1>My Goals</h1>
-
-    <div id="goalList">
-      <!-- goals will show here -->
-    </div>
-
-    <div class="input-container">
-      <input type="text" id="goalInput" placeholder="Add new goal..." />
-      <button id="addGoal">+</button>
-    </div>
+  <div class="app">
+    <header>
+      <input type="text" id="goalInput" placeholder="Type your goal..." />
+      <button id="addBtn">+</button>
+    </header>
+    <main id="goalList"></main>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
