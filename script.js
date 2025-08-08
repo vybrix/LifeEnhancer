@@ -1,37 +1,67 @@
-// loading screen logic
+// Long loading time for aesthetic
 setTimeout(() => {
-  document.querySelector('.loader').style.display = 'none';
-  document.querySelector('main').classList.remove('hidden');
-}, 4000); // longer loading
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+}, 3000);
 
-// typing effect
-const text = "discipline = freedom.";
-let i = 0;
-const speed = 100;
+// Format current date
+const now = new Date();
+document.getElementById('current-date').textContent = now.toDateString();
 
-function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("typed").textContent += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, speed);
+// Daily streak tracking
+let lastVisit = localStorage.getItem('lastVisit');
+let streak = parseInt(localStorage.getItem('streak') || 0);
+const today = new Date().toDateString();
+
+if (lastVisit !== today) {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  if (lastVisit === yesterday.toDateString()) {
+    streak++;
+  } else {
+    streak = 1;
   }
+  localStorage.setItem('lastVisit', today);
+  localStorage.setItem('streak', streak);
 }
-setTimeout(typeWriter, 4000); // start after loading
 
-// goal adding logic
-const addGoalBtn = document.getElementById("addGoal");
-const input = document.getElementById("goalInput");
-const list = document.getElementById("goalList");
+document.getElementById('streak-count').textContent = streak;
 
-addGoalBtn.addEventListener("click", () => {
-  const goal = input.value.trim();
-  if (goal !== "") {
-    const li = document.createElement("li");
-    li.textContent = goal;
-    li.addEventListener("click", () => {
-      li.classList.toggle("completed");
-    });
-    list.appendChild(li);
-    input.value = "";
-  }
-});
+// Goal adding
+const addGoalBtn = document.getElementById('add-goal');
+const goalText = document.getElementById('goal-text');
+const goalList = document.getElementById('goal-list');
+
+// Load existing goals
+let goals = JSON.parse(localStorage.getItem('goals') || '[]');
+renderGoals();
+
+addGoalBtn.onclick = () => {
+  const text = goalText.value.trim();
+  if (!text) return;
+
+  goals.push({ text, done: false });
+  localStorage.setItem('goals', JSON.stringify(goals));
+  goalText.value = '';
+  renderGoals();
+};
+
+function renderGoals() {
+  goalList.innerHTML = '';
+  goals.forEach((goal, i) => {
+    const card = document.createElement('div');
+    card.className = 'goal-card' + (goal.done ? ' done' : '');
+    card.innerHTML = `
+      <span>${goal.text}</span>
+      <button class="complete-btn">${goal.done ? 'Undo' : 'Done'}</button>
+    `;
+
+    card.querySelector('.complete-btn').onclick = () => {
+      goals[i].done = !goals[i].done;
+      localStorage.setItem('goals', JSON.stringify(goals));
+      renderGoals();
+    };
+
+    goalList.appendChild(card);
+  });
+}
