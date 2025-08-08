@@ -3,24 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Daily Discipline</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Goal Tracker</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="loader">
-    <div class="loader-text">discipline is loading...</div>
+  <div id="loading-screen">
+    <div class="loader-text">Loading your potential...</div>
   </div>
 
-  <main class="hidden">
-    <div class="title-container">
-      <h1><span id="typed"></span></h1>
-      <p>track goals. stay consistent. become better.</p>
-    </div>
-    <div class="goals">
-      <input type="text" id="goalInput" placeholder="add a new goal..."/>
-      <button id="addGoal">+</button>
-      <ul id="goalList"></ul>
-    </div>
+  <main id="app" style="display: none;">
+    <header>
+      <h1>My Goals</h1>
+      <p id="current-date"></p>
+      <div id="streak">🔥 Daily Streak: <span id="streak-count">0</span></div>
+    </header>
+
+    <section id="goal-input">
+      <input type="text" id="goal-text" placeholder="Enter a goal..." />
+      <button id="add-goal">Add Goal</button>
+    </section>
+
+    <section id="goal-list"></section>
   </main>
 
   <script src="script.js"></script>
