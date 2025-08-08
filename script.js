@@ -1,49 +1,29 @@
-const goalInput = document.getElementById('goalInput');
-const addGoalBtn = document.getElementById('addGoal');
-const goalList = document.getElementById('goalList');
+const input = document.getElementById('goalInput');
+const addBtn = document.getElementById('addBtn');
+const list = document.getElementById('goalList');
 
-addGoalBtn.addEventListener('click', () => {
-  const text = goalInput.value.trim();
-  if (text === '') return;
+addBtn.onclick = () => {
+  const value = input.value.trim();
+  if (value === '') return;
 
-  addGoal(text);
-  goalInput.value = '';
-});
-
-function addGoal(text) {
   const card = document.createElement('div');
-  card.className = 'goal-card';
+  card.className = 'card';
 
-  const span = document.createElement('span');
-  span.className = 'goal-text';
-  span.textContent = text;
+  const text = document.createElement('p');
+  text.textContent = value;
 
-  const actions = document.createElement('div');
-  actions.className = 'goal-actions';
+  const removeBtn = document.createElement('button');
+  removeBtn.innerHTML = '✕';
+  removeBtn.onclick = () => card.remove();
 
-  const checkBtn = document.createElement('button');
-  checkBtn.className = 'check-btn';
-  checkBtn.innerHTML = '✔';
-  checkBtn.title = 'Mark as done';
+  const doneBtn = document.createElement('button');
+  doneBtn.innerHTML = '✔';
+  doneBtn.onclick = () => card.classList.toggle('done');
 
-  const deleteBtn = document.createElement('button');
-  deleteBtn.className = 'delete-btn';
-  deleteBtn.innerHTML = '✖';
-  deleteBtn.title = 'Delete';
+  card.appendChild(text);
+  card.appendChild(doneBtn);
+  card.appendChild(removeBtn);
+  list.prepend(card);
 
-  checkBtn.addEventListener('click', () => {
-    span.classList.toggle('done');
-  });
-
-  deleteBtn.addEventListener('click', () => {
-    card.remove();
-  });
-
-  actions.appendChild(checkBtn);
-  actions.appendChild(deleteBtn);
-
-  card.appendChild(span);
-  card.appendChild(actions);
-
-  goalList.appendChild(card);
-}
+  input.value = '';
+};
