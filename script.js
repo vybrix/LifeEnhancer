@@ -20,7 +20,7 @@ function updateDateAndDay() {
   const now = new Date();
   const day = weekdays[now.getDay()];
   greeting.textContent = `Good Morning`;
-  dayText.textContent = `It's ${day}. ${themes[day]}.`;
+  dayText.textContent = `It’s ${day}. ${themes[day]}.`;
   dateText.textContent = now.toDateString();
 }
 
@@ -51,7 +51,7 @@ function updateProgress() {
   const percent = goals.length > 0 ? Math.round((checked.length / goals.length) * 100) : 0;
 
   progressBar.style.width = `${percent}%`;
-  progressText.textContent = `${percent}% complete`;
+  progressText.textContent = `${percent}% Complete`;
 }
 
 updateDateAndDay();
