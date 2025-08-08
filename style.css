@@ -1,111 +1,102 @@
-body {
-  background-color: #000;
-  font-family: 'Inter', sans-serif;
-  color: #fff;
-  padding: 40px;
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.container {
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0a0a0a;
+  color: #eee;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.app {
   max-width: 600px;
-  margin: auto;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-h1 {
-  font-size: 28px;
-  margin-bottom: 24px;
-  color: #fff;
-}
-
-.input-container {
+header {
+  position: sticky;
+  top: 0;
+  background: #0a0a0a;
+  z-index: 10;
+  padding-bottom: 1rem;
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 0.5rem;
+  align-items: center;
 }
 
-#goalInput {
+header input {
   flex: 1;
-  padding: 14px 16px;
-  background-color: #0a0a0a;
-  border: 1px solid #111;
-  border-radius: 12px;
-  color: #fff;
-  font-size: 16px;
-  outline: none;
+  padding: 0.75rem 1rem;
+  border: 1px solid #1a1a1a;
+  background: #111;
+  color: #eee;
+  border-radius: 0.4rem;
+  font-size: 1rem;
 }
 
-#goalInput::placeholder {
-  color: #666;
-}
-
-#addGoal {
-  background-color: #0a0a0a;
-  border: 1px solid #111;
-  color: #999;
-  border-radius: 12px;
-  font-size: 22px;
-  width: 48px;
-  height: 48px;
+header button {
+  padding: 0.75rem 1.25rem;
+  background: #111;
+  color: #eee;
+  font-size: 1.2rem;
+  border: 1px solid #1a1a1a;
+  border-radius: 0.4rem;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
-#addGoal:hover {
-  background-color: #111;
-  color: #fff;
+header button:hover {
+  background: #191919;
 }
 
-.goal-card {
+#goalList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.card {
+  background: #111;
+  padding: 0.85rem 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid #1a1a1a;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #0a0a0a;
-  border: 1px solid #111;
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin-bottom: 16px;
-  transition: background-color 0.2s ease;
-}
-
-.goal-card:hover {
-  background-color: #111;
-}
-
-.goal-text {
-  font-size: 18px;
-  font-weight: 500;
-  color: #e0e0e0;
-  transition: color 0.2s ease;
-}
-
-.goal-text.done {
-  color: #666;
-  text-decoration: line-through;
-}
-
-.goal-actions {
-  display: flex;
-  gap: 12px;
-}
-
-.check-btn,
-.delete-btn {
-  background-color: #0a0a0a;
-  border: 1px solid #111;
-  color: #999;
-  border-radius: 8px;
-  font-size: 16px;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
   transition: all 0.2s ease;
 }
 
-.check-btn:hover,
-.delete-btn:hover {
-  background-color: #111;
-  color: #fff;
+.card:hover {
+  background: #161616;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.card button {
+  background: none;
+  border: none;
+  color: #eee;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.4rem;
+  transition: 0.2s ease;
+}
+
+.card button:hover {
+  color: #aaa;
 }
