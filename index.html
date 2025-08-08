@@ -1,31 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Goal Tracker</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Dashboard Goal Tracker</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <div id="loading-screen">
-    <div class="loader-text">Loading your potential...</div>
+    <div class="spinner"></div>
   </div>
-
-  <main id="app" style="display: none;">
-    <header>
-      <h1>My Goals</h1>
-      <p id="current-date"></p>
-      <div id="streak">🔥 Daily Streak: <span id="streak-count">0</span></div>
-    </header>
-
-    <section id="goal-input">
-      <input type="text" id="goal-text" placeholder="Enter a goal..." />
-      <button id="add-goal">Add Goal</button>
-    </section>
-
-    <section id="goal-list"></section>
-  </main>
-
+  <div class="dashboard hidden">
+    <aside class="sidebar">
+      <h2>Tracker</h2>
+      <nav>
+        <button id="nav-overview" class="nav-btn active">Overview</button>
+        <button id="nav-goals" class="nav-btn">Goals</button>
+        <button id="nav-stats" class="nav-btn">Stats</button>
+        <button id="toggle-theme" class="nav-btn">Toggle Theme</button>
+      </nav>
+    </aside>
+    <main class="main-content">
+      <section class="overview-view">
+        <div class="card">
+          <h3>Daily Streak</h3>
+          <p id="streak-count">0</p>
+        </div>
+        <div class="card">
+          <h3>Completion Rate</h3>
+          <p id="completion-rate">0%</p>
+        </div>
+      </section>
+      <section class="goals-view hidden">
+        <div class="input-row">
+          <input type="text" id="goal-input" placeholder="Add a goal..."/>
+          <button id="add-goal">Add</button>
+        </div>
+        <div id="goal-list"></div>
+      </section>
+      <section class="stats-view hidden">
+        <div class="card">
+          <h3>Week View</h3>
+          <p id="weekly-completed">0 / 7</p>
+        </div>
+      </section>
+    </main>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
