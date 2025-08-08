@@ -1,57 +1,68 @@
-const greeting = document.getElementById("greeting");
-const dayText = document.getElementById("dayText");
-const dateText = document.getElementById("currentDate");
-const goalList = document.getElementById("goalList");
+// LOADING SCREEN
+window.addEventListener('load', () => {
+  const overlay = document.getElementById('loadingOverlay');
+  overlay.style.transition = 'opacity 0.5s ease';
+  overlay.style.opacity = '0';
+  setTimeout(() => overlay.remove(), 600);
+});
+
+// GOALS APP
+const input = document.getElementById("goalInput");
+const list = document.getElementById("goalList");
 const progressBar = document.getElementById("progressBar");
 const progressText = document.getElementById("progressText");
 
-const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const themes = {
-  Monday: "Reset day",
-  Tuesday: "Build day",
-  Wednesday: "Reflect day",
-  Thursday: "Push day",
-  Friday: "Finish strong",
-  Saturday: "Breathe",
-  Sunday: "Prep"
-};
+let goals = JSON.parse(localStorage.getItem("goals")) || [];
 
-function updateDateAndDay() {
-  const now = new Date();
-  const day = weekdays[now.getDay()];
-  greeting.textContent = `Good Morning`;
-  dayText.textContent = `It’s ${day}. ${themes[day]}.`;
-  dateText.textContent = now.toDateString();
-}
-
-function addGoal() {
-  const input = document.getElementById("newGoal");
-  const goalText = input.value.trim();
-  if (goalText === "") return;
-
-  const li = document.createElement("li");
-  const checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-  checkbox.onchange = updateProgress;
-
-  const span = document.createElement("span");
-  span.textContent = goalText;
-
-  li.appendChild(checkbox);
-  li.appendChild(span);
-  goalList.appendChild(li);
-
-  input.value = "";
-  updateProgress();
+function saveGoals() {
+  localStorage.setItem("goals", JSON.stringify(goals));
 }
 
 function updateProgress() {
-  const goals = goalList.querySelectorAll("li");
-  const checked = goalList.querySelectorAll("input[type='checkbox']:checked");
-  const percent = goals.length > 0 ? Math.round((checked.length / goals.length) * 100) : 0;
+  if (goals.length === 0) {
+    progressBar.style.width = "0%";
+    progressText.textContent = "0% done";
+    return;
+  }
 
-  progressBar.style.width = `${percent}%`;
-  progressText.textContent = `${percent}% Complete`;
+  const completed = goals.filter(g => g.done).length;
+  const percent = Math.round((completed / goals.length) * 100);
+  progressBar.style.width = percent + "%";
+  progressText.textContent = `${percent}% done`;
 }
 
-updateDateAndDay();
+function renderGoals() {
+  list.innerHTML = "";
+  goals.forEach((goal, index) => {
+    const li = document.createElement("li");
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = goal.done;
+    checkbox.onchange = () => {
+      goals[index].done = !goals[index].done;
+      saveGoals();
+      updateProgress();
+      renderGoals();
+    };
+
+    const span = document.createElement("span");
+    span.textContent = goal.text;
+
+    li.appendChild(checkbox);
+    li.appendChild(span);
+    list.appendChild(li);
+  });
+
+  updateProgress();
+}
+
+function addGoal() {
+  const text = input.value.trim();
+  if (text === "") return;
+  goals.push({ text, done: false });
+  input.value = "";
+  saveGoals();
+  renderGoals();
+}
+
+renderGoals();
