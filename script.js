@@ -1,34 +1,67 @@
-const input = document.getElementById('goal-input');
-const addBtn = document.getElementById('add-goal');
-const list = document.getElementById('goal-list');
+// Long loading time for aesthetic
+setTimeout(() => {
+  document.getElementById('loading-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+}, 3000);
 
-let goals = JSON.parse(localStorage.getItem('goals')) || [];
+// Format current date
+const now = new Date();
+document.getElementById('current-date').textContent = now.toDateString();
+
+// Daily streak tracking
+let lastVisit = localStorage.getItem('lastVisit');
+let streak = parseInt(localStorage.getItem('streak') || 0);
+const today = new Date().toDateString();
+
+if (lastVisit !== today) {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  if (lastVisit === yesterday.toDateString()) {
+    streak++;
+  } else {
+    streak = 1;
+  }
+  localStorage.setItem('lastVisit', today);
+  localStorage.setItem('streak', streak);
+}
+
+document.getElementById('streak-count').textContent = streak;
+
+// Goal adding
+const addGoalBtn = document.getElementById('add-goal');
+const goalText = document.getElementById('goal-text');
+const goalList = document.getElementById('goal-list');
+
+// Load existing goals
+let goals = JSON.parse(localStorage.getItem('goals') || '[]');
+renderGoals();
+
+addGoalBtn.onclick = () => {
+  const text = goalText.value.trim();
+  if (!text) return;
+
+  goals.push({ text, done: false });
+  localStorage.setItem('goals', JSON.stringify(goals));
+  goalText.value = '';
+  renderGoals();
+};
 
 function renderGoals() {
-  list.innerHTML = '';
-  goals.forEach((g, i) => {
-    const li = document.createElement('li');
-    li.className = 'goal-item' + (g.done ? ' goal-completed' : '');
-    li.innerHTML = `
-      <span>${g.text}</span>
-      <button class="complete-btn">${g.done ? 'Undo' : 'Done'}</button>
+  goalList.innerHTML = '';
+  goals.forEach((goal, i) => {
+    const card = document.createElement('div');
+    card.className = 'goal-card' + (goal.done ? ' done' : '');
+    card.innerHTML = `
+      <span>${goal.text}</span>
+      <button class="complete-btn">${goal.done ? 'Undo' : 'Done'}</button>
     `;
-    li.querySelector('.complete-btn').onclick = () => {
+
+    card.querySelector('.complete-btn').onclick = () => {
       goals[i].done = !goals[i].done;
       localStorage.setItem('goals', JSON.stringify(goals));
       renderGoals();
     };
-    list.appendChild(li);
+
+    goalList.appendChild(card);
   });
 }
-
-addBtn.onclick = () => {
-  const text = input.value.trim();
-  if (!text) return;
-  goals.push({ text, done: false });
-  localStorage.setItem('goals', JSON.stringify(goals));
-  input.value = '';
-  renderGoals();
-};
-
-renderGoals();
