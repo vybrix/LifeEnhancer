@@ -1,18 +1,37 @@
-window.addEventListener('DOMContentLoaded', () => {
-  const loader = document.getElementById('loader');
-  const app = document.getElementById('app');
-  const addBtn = document.querySelector('.goal button');
-  const input = document.querySelector('.goal input');
-  const goalList = document.querySelector('.goal-list');
+// loading screen logic
+setTimeout(() => {
+  document.querySelector('.loader').style.display = 'none';
+  document.querySelector('main').classList.remove('hidden');
+}, 4000); // longer loading
 
-  addBtn.addEventListener('click', () => {
-    const goalText = input.value.trim();
-    if (goalText !== '') {
-      const div = document.createElement('div');
-      div.className = 'goal-item';
-      div.textContent = goalText;
-      goalList.appendChild(div);
-      input.value = '';
-    }
-  });
+// typing effect
+const text = "discipline = freedom.";
+let i = 0;
+const speed = 100;
+
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typed").textContent += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
+}
+setTimeout(typeWriter, 4000); // start after loading
+
+// goal adding logic
+const addGoalBtn = document.getElementById("addGoal");
+const input = document.getElementById("goalInput");
+const list = document.getElementById("goalList");
+
+addGoalBtn.addEventListener("click", () => {
+  const goal = input.value.trim();
+  if (goal !== "") {
+    const li = document.createElement("li");
+    li.textContent = goal;
+    li.addEventListener("click", () => {
+      li.classList.toggle("completed");
+    });
+    list.appendChild(li);
+    input.value = "";
+  }
 });
