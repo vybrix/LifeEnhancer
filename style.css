@@ -1,14 +1,22 @@
+:root {
+  --bg: #0f0f0f;
+  --card: #1a1a1a;
+  --text: #f5f5f5;
+  --accent: #4caf50;
+  --accent-glow: rgba(76, 175, 80, 0.3);
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #121212;
-  color: #f0f0f0;
+  background: var(--bg);
+  color: var(--text);
 }
 
 .container {
   max-width: 500px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: auto;
+  padding: 30px 20px;
 }
 
 header {
@@ -16,61 +24,116 @@ header {
   margin-bottom: 30px;
 }
 
-input[type="text"] {
-  width: 100%;
-  padding: 10px;
+header h1 {
+  font-size: 1.8rem;
+}
+
+header p {
+  font-size: 1.1rem;
+  color: #aaa;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.goals {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 0 12px #0004;
+}
+
+.add-goal {
+  display: flex;
+  gap: 10px;
   margin-top: 10px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
   border: none;
-  border-radius: 6px;
-  background-color: #1e1e1e;
+  border-radius: 8px;
+  background-color: #2a2a2a;
   color: white;
 }
 
 button {
-  margin-top: 10px;
-  width: 100%;
-  padding: 10px;
-  background: #2e8bff;
-  color: white;
+  padding: 10px 14px;
+  background: var(--accent);
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  color: white;
   cursor: pointer;
+  font-weight: bold;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
-  background-color: #1e1e1e;
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 6px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  background: #202020;
+  padding: 12px;
+  margin: 6px 0;
+  border-radius: 10px;
+  transition: background 0.3s;
+}
+
+li input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--accent);
+  margin-right: 12px;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+li input:checked + span {
+  text-decoration: line-through;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+}
+
+li span {
+  flex: 1;
+}
+
+.progress {
+  margin-top: 30px;
+  text-align: center;
 }
 
 #progressBarContainer {
+  background: #1e1e1e;
+  border-radius: 20px;
+  height: 20px;
   width: 100%;
-  height: 15px;
-  background: #2a2a2a;
-  border-radius: 10px;
-  margin-top: 20px;
+  overflow: hidden;
+  box-shadow: 0 0 10px var(--accent-glow);
 }
 
 #progressBar {
-  width: 0%;
   height: 100%;
-  background: #4caf50;
-  border-radius: 10px;
-  transition: width 0.3s;
+  width: 0%;
+  background: var(--accent);
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+#progressText {
+  margin-top: 10px;
+  color: #bbb;
 }
 
 footer {
-  text-align: center;
   margin-top: 40px;
+  text-align: center;
   font-size: 0.9rem;
-  color: #888;
+  color: #777;
 }
