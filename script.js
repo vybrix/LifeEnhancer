@@ -1,71 +1,49 @@
-setTimeout(() => {
-  document.getElementById('loading-screen').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-}, 3000);
+const goalInput = document.getElementById('goalInput');
+const addGoalBtn = document.getElementById('addGoal');
+const goalList = document.getElementById('goalList');
 
-const now = new Date();
-document.getElementById('current-date').textContent = now.toDateString();
+addGoalBtn.addEventListener('click', () => {
+  const text = goalInput.value.trim();
+  if (text === '') return;
 
-let lastVisit = localStorage.getItem('lastVisit');
-let streak = parseInt(localStorage.getItem('streak') || 0);
-const today = new Date().toDateString();
+  addGoal(text);
+  goalInput.value = '';
+});
 
-if (lastVisit !== today) {
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  if (lastVisit === yesterday.toDateString()) {
-    streak++;
-  } else {
-    streak = 1;
-  }
-  localStorage.setItem('lastVisit', today);
-  localStorage.setItem('streak', streak);
-}
+function addGoal(text) {
+  const card = document.createElement('div');
+  card.className = 'goal-card';
 
-document.getElementById('streak-count').textContent = streak;
+  const span = document.createElement('span');
+  span.className = 'goal-text';
+  span.textContent = text;
 
-const addGoalBtn = document.getElementById('add-goal');
-const goalText = document.getElementById('goal-text');
-const goalList = document.getElementById('goal-list');
+  const actions = document.createElement('div');
+  actions.className = 'goal-actions';
 
-let goals = JSON.parse(localStorage.getItem('goals') || '[]');
-renderGoals();
+  const checkBtn = document.createElement('button');
+  checkBtn.className = 'check-btn';
+  checkBtn.innerHTML = '✔';
+  checkBtn.title = 'Mark as done';
 
-addGoalBtn.onclick = () => {
-  const text = goalText.value.trim();
-  if (!text) return;
+  const deleteBtn = document.createElement('button');
+  deleteBtn.className = 'delete-btn';
+  deleteBtn.innerHTML = '✖';
+  deleteBtn.title = 'Delete';
 
-  goals.push({ text, done: false });
-  localStorage.setItem('goals', JSON.stringify(goals));
-  goalText.value = '';
-  renderGoals();
-};
-
-function renderGoals() {
-  goalList.innerHTML = '';
-  goals.forEach((goal, i) => {
-    const card = document.createElement('div');
-    card.className = 'goal-card' + (goal.done ? ' done' : '');
-    card.innerHTML = `
-      <span>${goal.text}</span>
-      <div class="goal-actions">
-        <button class="complete-btn">${goal.done ? 'Undo' : 'Done'}</button>
-        <button class="remove-btn">✖</button>
-      </div>
-    `;
-
-    card.querySelector('.complete-btn').onclick = () => {
-      goals[i].done = !goals[i].done;
-      localStorage.setItem('goals', JSON.stringify(goals));
-      renderGoals();
-    };
-
-    card.querySelector('.remove-btn').onclick = () => {
-      goals.splice(i, 1);
-      localStorage.setItem('goals', JSON.stringify(goals));
-      renderGoals();
-    };
-
-    goalList.appendChild(card);
+  checkBtn.addEventListener('click', () => {
+    span.classList.toggle('done');
   });
+
+  deleteBtn.addEventListener('click', () => {
+    card.remove();
+  });
+
+  actions.appendChild(checkBtn);
+  actions.appendChild(deleteBtn);
+
+  card.appendChild(span);
+  card.appendChild(actions);
+
+  goalList.appendChild(card);
 }
