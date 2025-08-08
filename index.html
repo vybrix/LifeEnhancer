@@ -2,37 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Self Discipline Tracker</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Discipline</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-
-  <!-- Loading Screen -->
-  <div id="loader" class="loader-container">
-    <div class="loader-text">loading your future...</div>
-    <div class="loader-bar">
-      <div class="loader-progress"></div>
-    </div>
+  <div class="loader">
+    <div class="loader-text">discipline is loading...</div>
   </div>
 
-  <!-- Main App -->
-  <main id="app" class="hidden">
-    <header>
-      <h1>self discipline</h1>
-      <p>track. reflect. grow.</p>
-    </header>
-
-    <section class="goals">
-      <div class="goal">
-        <h2>Daily Goal</h2>
-        <input type="text" placeholder="type your goal..." />
-        <button>add</button>
-      </div>
-      <div class="goal-list">
-        <!-- goals will show up here -->
-      </div>
-    </section>
+  <main class="hidden">
+    <div class="title-container">
+      <h1><span id="typed"></span></h1>
+      <p>track goals. stay consistent. become better.</p>
+    </div>
+    <div class="goals">
+      <input type="text" id="goalInput" placeholder="add a new goal..."/>
+      <button id="addGoal">+</button>
+      <ul id="goalList"></ul>
+    </div>
   </main>
 
   <script src="script.js"></script>
