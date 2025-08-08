@@ -1,67 +1,76 @@
-// Long loading time for aesthetic
-setTimeout(() => {
-  document.getElementById('loading-screen').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-}, 3000);
+// loading fade
+window.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    document.getElementById('loading-screen').remove();
+    document.querySelector('.dashboard').classList.remove('hidden');
+  }, 3000);
+});
 
-// Format current date
-const now = new Date();
-document.getElementById('current-date').textContent = now.toDateString();
+// nav toggles
+const views = { overview: 0, goals: 1, stats: 2 };
+const sections = [
+  document.querySelector('.overview-view'),
+  document.querySelector('.goals-view'),
+  document.querySelector('.stats-view'),
+];
+document.querySelectorAll('.nav-btn').forEach((btn, i) => {
+  btn.onclick = () => {
+    document.querySelector('.nav-btn.active').classList.remove('active');
+    btn.classList.add('active');
+    sections.forEach((sec, idx) => {
+      sec.classList.toggle('hidden', idx !== i);
+    });
+  };
+});
 
-// Daily streak tracking
+// streak and goals logic (like before)
+let goals = JSON.parse(localStorage.getItem('goals')||'[]');
+let streak = parseInt(localStorage.getItem('streak')||'0');
 let lastVisit = localStorage.getItem('lastVisit');
-let streak = parseInt(localStorage.getItem('streak') || 0);
 const today = new Date().toDateString();
-
 if (lastVisit !== today) {
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  if (lastVisit === yesterday.toDateString()) {
-    streak++;
-  } else {
-    streak = 1;
-  }
-  localStorage.setItem('lastVisit', today);
+  streak = lastVisit === yesterday.toDateString() ? streak + 1 : 1;
   localStorage.setItem('streak', streak);
+  localStorage.setItem('lastVisit', today);
 }
-
 document.getElementById('streak-count').textContent = streak;
 
-// Goal adding
-const addGoalBtn = document.getElementById('add-goal');
-const goalText = document.getElementById('goal-text');
-const goalList = document.getElementById('goal-list');
-
-// Load existing goals
-let goals = JSON.parse(localStorage.getItem('goals') || '[]');
-renderGoals();
-
-addGoalBtn.onclick = () => {
-  const text = goalText.value.trim();
-  if (!text) return;
-
-  goals.push({ text, done: false });
-  localStorage.setItem('goals', JSON.stringify(goals));
-  goalText.value = '';
-  renderGoals();
-};
+function updateCompletion() {
+  const done = goals.filter(g=>g.done).length;
+  const rate = goals.length ? Math.round(done/goals.length*100) : 0;
+  document.getElementById('completion-rate').textContent = rate + '%';
+}
+updateCompletion();
 
 function renderGoals() {
-  goalList.innerHTML = '';
-  goals.forEach((goal, i) => {
+  const list = document.getElementById('goal-list');
+  list.innerHTML = '';
+  goals.forEach((g,i) => {
     const card = document.createElement('div');
-    card.className = 'goal-card' + (goal.done ? ' done' : '');
-    card.innerHTML = `
-      <span>${goal.text}</span>
-      <button class="complete-btn">${goal.done ? 'Undo' : 'Done'}</button>
-    `;
-
-    card.querySelector('.complete-btn').onclick = () => {
-      goals[i].done = !goals[i].done;
+    card.className = 'goal-card' + (g.done ? ' done' : '');
+    card.innerHTML = `<span>${g.text}</span><button>Toggle</button>`;
+    card.querySelector('button').onclick=()=>{
+      g.done=!g.done;
       localStorage.setItem('goals', JSON.stringify(goals));
-      renderGoals();
+      updateCompletion(); renderGoals();
     };
-
-    goalList.appendChild(card);
+    list.appendChild(card);
   });
 }
+renderGoals();
+
+document.getElementById('add-goal').onclick = () => {
+  const txt = document.getElementById('goal-input').value.trim();
+  if (!txt) return;
+  goals.push({text:txt,done:false});
+  localStorage.setItem('goals', JSON.stringify(goals));
+  document.getElementById('goal-input').value = '';
+  renderGoals(); updateCompletion();
+};
+
+// theme toggle
+document.getElementById('toggle-theme').onclick = () => {
+  document.body.classList.toggle('light-mode');
+};
