@@ -1,7 +1,7 @@
 // LOADING SCREEN
 window.addEventListener('load', () => {
   const overlay = document.getElementById('loadingOverlay');
-  overlay.style.transition = 'opacity 0.5s ease';
+  overlay.style.transition = 'opacity 1.0s ease';
   overlay.style.opacity = '0';
   setTimeout(() => overlay.remove(), 600);
 });
