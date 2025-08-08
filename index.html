@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Goals</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app">
-    <header>
-      <input type="text" id="goalInput" placeholder="Type your goal..." />
-      <button id="addBtn">+</button>
-    </header>
-    <main id="goalList"></main>
+  <div class="dashboard">
+    <form id="goalForm">
+      <input type="text" id="goalInput" placeholder="Enter a goal..." autocomplete="off" />
+    </form>
+    <ul id="goalList"></ul>
   </div>
   <script src="script.js"></script>
 </body>
