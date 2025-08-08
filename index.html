@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Goal Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1 id="greeting">Good Morning</h1>
+      <p id="dayText">It's [day].</p>
+    </header>
+
+    <section class="goals">
+      <h2>Today's Goals</h2>
+      <ul id="goalList">
+        <!-- goals will go here -->
+      </ul>
+      <input type="text" id="newGoal" placeholder="New goal..." />
+      <button onclick="addGoal()">➕ Add Goal</button>
+    </section>
+
+    <section class="progress">
+      <div id="progressBarContainer">
+        <div id="progressBar"></div>
+      </div>
+      <p id="progressText">0% complete</p>
+    </section>
+
+    <footer>
+      <p>📅 <span id="currentDate"></span></p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
