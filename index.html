@@ -1,18 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Dashboard Goals + Clock</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div class="dashboard">
-    <form id="goalForm">
-      <input type="text" id="goalInput" placeholder="Enter a goal..." autocomplete="off" />
-    </form>
-    <ul id="goalList"></ul>
+  <div class="clock-container">
+    <div id="analog-clock">
+      <div class="hand hour" id="hour"></div>
+      <div class="hand minute" id="minute"></div>
+      <div class="hand second" id="second"></div>
+    </div>
+    <div id="digital-clock"></div>
   </div>
+
+  <div class="stats">
+    <div>Daily Streak: <span id="streak">0</span></div>
+    <div>Weekly Avg: <span id="weekly-score">0%</span></div>
+  </div>
+
+  <div class="daily-test">
+    <p id="test-question"></p>
+    <button id="test-yes">Yes</button>
+    <button id="test-no">No</button>
+  </div>
+
+  <div class="goal-input">
+    <input type="text" id="goal-input" placeholder="Add a goal..." autocomplete="off"/>
+    <button id="add-goal">+</button>
+  </div>
+  <ul id="goal-list"></ul>
+
   <script src="script.js"></script>
 </body>
 </html>
